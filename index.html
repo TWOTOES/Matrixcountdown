@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Matrix Countdown</title>
+	<style type="text/css">
+		body {
+			background-color: #000000;
+			font-family: monospace;
+			font-size: 50px;
+			color: #EC3099;
+			text-align: center;
+			overflow: hidden;
+		}
+
+		#countdown {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 1;
+		}
+
+		.fall {
+			position: absolute;
+			top: -50px;
+			left: calc(100% * var(--rand));
+			animation: fall 5s linear infinite;
+			font-size: 25px;
+			color: #EC3099;
+			opacity: 0.5;
+			white-space: nowrap;
+			pointer-events: none;
+		}
+
+		@keyframes fall {
+			from {
+				top: -50px;
+				transform: rotate(0deg);
+			}
+			to {
+				top: calc(100% + 50px);
+				transform: rotate(360deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="countdown"></div>
+
+	<script type="text/javascript">
+		// Set the countdown date and time
+		var countDownDate = new Date("Mar 28, 2023 00:00:00").getTime();
+
+		// Update the countdown every second
+		var x = setInterval(function() {
+			// Get the current date and time
+			var now = new Date().getTime();
+
+			// Calculate the time remaining
+			var distance = countDownDate - now;
+
+			// Calculate days, hours, minutes, and seconds remaining
+			var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+			// Format the countdown string
+			var countdownStr = "";
+
+			countdownStr += days + "d ";
+			countdownStr += hours + "h ";
+			countdownStr += minutes + "m ";
+			countdownStr += seconds + "s";
+
+			// Display the countdown
+			document.getElementById("countdown").innerHTML = countdownStr;
+
+			// If the countdown is finished, display "EXPIRED"
+			if (distance < 0) {
+				clearInterval(x);
+				document.getElementById("countdown").innerHTML = "EXPIRED";
+			}
+		}, 1000);
+
+		// Add falling code animation
+		var chars = "0123456789";
+		var codeContainer = document.createElement("div");
+		codeContainer.style.position = "absolute";
+		codeContainer.style.top = "0
